@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Camera/Face scan frame in Brand Orange -->
+    <path
+        android:fillColor="#EA580C"
+        android:pathData="M35,30 L25,30 C22.2,30 20,32.2 20,35 L20,45 L25,45 L25,35 L35,35 Z" />
+    <path
+        android:fillColor="#EA580C"
+        android:pathData="M73,30 L83,30 C85.8,30 88,32.2 88,35 L88,45 L83,45 L83,35 L73,35 Z" />
+    <path
+        android:fillColor="#EA580C"
+        android:pathData="M25,63 L20,63 L20,73 C20,75.8 22.2,78 25,78 L35,78 L35,73 L25,73 Z" />
+    <path
+        android:fillColor="#EA580C"
+        android:pathData="M83,63 L88,63 L88,73 C88,75.8 85.8,78 83,78 L73,78 L73,73 L83,73 Z" />
+    <!-- Checkmark / Lock icon in center -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,40 C49,40 45,44 45,49 L45,52 L43,52 C41.3,52 40,53.3 40,55 L40,67 C40,68.7 41.3,70 43,70 L65,70 C66.7,70 68,68.7 68,67 L68,55 C68,53.3 66.7,52 65,52 L63,52 L63,49 C63,44 59,40 54,40 Z M54,43 C57.3,43 60,45.7 60,49 L60,52 L48,52 L48,49 C48,45.7 50.7,43 54,43 Z" />
+</vector>

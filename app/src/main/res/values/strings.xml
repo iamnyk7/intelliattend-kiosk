@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">IntelliAttend Kiosk</string>
+    <string name="device_admin_label">IntelliAttend Kiosk Manager</string>
+    <string name="device_admin_description">Secures and locks down dedicated IntelliAttend kiosk terminals.</string>
+
+    <!-- Setup Screen -->
+    <string name="setup_title">Kiosk Terminal Setup</string>
+    <string name="setup_subtitle">Enter your assigned Device ID and Password to configure and lock this terminal.</string>
+    <string name="server_url_hint">Server Base URL (e.g. https://your-domain.com)</string>
+    <string name="device_code_hint">Device ID / Code (e.g. KIOSK-BLR-001)</string>
+    <string name="password_hint">Device Password</string>
+    <string name="btn_test_and_lock">Verify &amp; Enter Locked Kiosk</string>
+    <string name="connecting">Authenticating device...</string>
+
+    <!-- Kiosk Screen -->
+    <string name="offline_warning">No internet connection. Waiting for network...</string>
+    <string name="retry">Retry</string>
+    <string name="admin_exit_title">Technician Maintenance</string>
+    <string name="admin_exit_msg">Enter the Device Password to temporarily unlock the kiosk or exit to settings.</string>
+    <string name="btn_unlock">Unlock Terminal</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_hard_refresh">Hard Refresh</string>
+</resources>
