@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     android:background="@color/surface_dark"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="22dp">
 
     <TextView
         android:id="@+id/tvAdminTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/admin_exit_title"
-        android:textColor="@color/text_primary"
+        android:textColor="@color/brand_orange"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -20,19 +20,19 @@
         android:id="@+id/tvAdminMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginBottom="16dp"
         android:text="@string/admin_exit_msg"
         android:textColor="@color/text_secondary"
-        android:textSize="14sp" />
+        android:textSize="13sp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAdminPassword"
+        android:id="@+id/tilAdminPin"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/password_hint"
+        android:layout_marginBottom="12dp"
+        android:hint="@string/master_pin_hint"
         android:textColorHint="@color/text_secondary"
         app:boxStrokeColor="@color/brand_orange"
         app:hintTextColor="@color/brand_orange"
@@ -40,7 +40,7 @@
         app:passwordToggleTint="@color/text_secondary">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etAdminPassword"
+            android:id="@+id/etAdminPin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -57,7 +57,18 @@
         android:textSize="13sp"
         android:visibility="gone" />
 
-    <!-- Actions -->
+    <!-- Unlock / Lock Action -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnToggleLock"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/btn_unlock"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/brand_orange"
+        app:cornerRadius="8dp" />
+
+    <!-- Hard Refresh Action -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAdminHardRefresh"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -66,23 +77,17 @@
         android:layout_marginBottom="8dp"
         android:text="@string/btn_hard_refresh"
         android:textColor="@color/brand_orange"
+        app:cornerRadius="8dp"
         app:strokeColor="@color/brand_orange" />
 
+    <!-- Reconfigure Action -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAdminUnlock"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/btn_unlock"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/brand_orange" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAdminResetConfig"
+        android:id="@+id/btnAdminReconfigure"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:text="Reconfigure Device ID / Server"
+        android:layout_marginBottom="4dp"
+        android:text="@string/btn_reconfigure"
         android:textColor="@color/text_secondary" />
 
 </LinearLayout>

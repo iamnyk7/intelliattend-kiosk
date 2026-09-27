@@ -3,21 +3,28 @@
     <string name="device_admin_label">IntelliAttend Kiosk Manager</string>
     <string name="device_admin_description">Secures and locks down dedicated IntelliAttend kiosk terminals.</string>
 
-    <!-- Setup Screen -->
+    <!-- Generic Setup Screen -->
     <string name="setup_title">Kiosk Terminal Setup</string>
-    <string name="setup_subtitle">Enter your assigned Device ID and Password to configure and lock this terminal.</string>
-    <string name="server_url_hint">Server Base URL (e.g. https://your-domain.com)</string>
-    <string name="device_code_hint">Device ID / Code (e.g. KIOSK-BLR-001)</string>
-    <string name="password_hint">Device Password</string>
-    <string name="btn_test_and_lock">Verify &amp; Enter Locked Kiosk</string>
-    <string name="connecting">Authenticating device...</string>
+    <string name="setup_subtitle">Configure the web application URL, login credentials, and your master lock password.</string>
+    
+    <string name="web_url_hint">Website URL to load (e.g. https://your-domain.com/kiosk)</string>
+    <string name="web_username_hint">Web Login ID / Username (Optional)</string>
+    <string name="web_password_hint">Web Login Password (Optional)</string>
+    <string name="master_pin_hint">App Master Lock PIN / Password (to lock/unlock device)</string>
+    <string name="auto_login_label">Enable Web Auto-Login on page load</string>
+    
+    <string name="btn_save_and_launch">Lock Terminal &amp; Launch</string>
 
     <!-- Kiosk Screen -->
     <string name="offline_warning">No internet connection. Waiting for network...</string>
     <string name="retry">Retry</string>
-    <string name="admin_exit_title">Technician Maintenance</string>
-    <string name="admin_exit_msg">Enter the Device Password to temporarily unlock the kiosk or exit to settings.</string>
-    <string name="btn_unlock">Unlock Terminal</string>
-    <string name="btn_cancel">Cancel</string>
-    <string name="btn_hard_refresh">Hard Refresh</string>
+    
+    <!-- Maintenance Dialog -->
+    <string name="admin_exit_title">Kiosk Maintenance</string>
+    <string name="admin_exit_msg">Enter the App Master PIN to unlock the device or perform maintenance.</string>
+    <string name="btn_unlock">Unlock Device (Exit to Android)</string>
+    <string name="btn_lock">Re-lock Device (Kiosk Mode)</string>
+    <string name="btn_hard_refresh">Hard Refresh (Clear Cache)</string>
+    <string name="btn_reconfigure">Change URL &amp; Credentials</string>
+    <string name="btn_cancel">Close</string>
 </resources>

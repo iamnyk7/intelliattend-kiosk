@@ -9,11 +9,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.intelliattend.kiosk.data.SecurePreferences
 import com.intelliattend.kiosk.databinding.ActivitySetupBinding
-import com.intelliattend.kiosk.network.KioskApiClient
-import kotlinx.coroutines.launch
 
 class SetupActivity : AppCompatActivity() {
 
@@ -23,7 +20,6 @@ class SetupActivity : AppCompatActivity() {
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { _ ->
-        // Proceed to Kiosk regardless; KioskActivity handles missing permissions gracefully
         navigateToKiosk()
     }
 
@@ -34,74 +30,63 @@ class SetupActivity : AppCompatActivity() {
 
         prefs = SecurePreferences.getInstance(this)
 
-        // Pre-fill existing credentials if already saved
-        if (prefs.serverUrl.isNotBlank()) {
-            binding.etServerUrl.setText(prefs.serverUrl)
+        // Pre-fill existing configuration if available
+        if (prefs.targetUrl.isNotBlank()) {
+            binding.etTargetUrl.setText(prefs.targetUrl)
         }
-        if (prefs.deviceCode.isNotBlank()) {
-            binding.etDeviceCode.setText(prefs.deviceCode)
+        if (prefs.webUsername.isNotBlank()) {
+            binding.etWebUsername.setText(prefs.webUsername)
         }
+        if (prefs.webPassword.isNotBlank()) {
+            binding.etWebPassword.setText(prefs.webPassword)
+        }
+        if (prefs.masterPin.isNotBlank()) {
+            binding.etMasterPin.setText(prefs.masterPin)
+        }
+        binding.switchAutoLogin.isChecked = prefs.autoLoginEnabled
 
         binding.btnSubmit.setOnClickListener {
-            handleSetupSubmit()
+            handleSaveAndLaunch()
         }
     }
 
-    private fun handleSetupSubmit() {
-        val serverUrl = binding.etServerUrl.text?.toString()?.trim() ?: ""
-        val deviceCode = binding.etDeviceCode.text?.toString()?.trim() ?: ""
-        val password = binding.etPassword.text?.toString() ?: ""
+    private fun handleSaveAndLaunch() {
+        val targetUrl = binding.etTargetUrl.text?.toString()?.trim() ?: ""
+        val webUsername = binding.etWebUsername.text?.toString()?.trim() ?: ""
+        val webPassword = binding.etWebPassword.text?.toString() ?: ""
+        val masterPin = binding.etMasterPin.text?.toString()?.trim() ?: ""
+        val autoLogin = binding.switchAutoLogin.isChecked
 
-        if (serverUrl.isBlank() || !serverUrl.startsWith("http")) {
-            showError("Please enter a valid Server URL starting with http:// or https://")
-            return
-        }
-        if (deviceCode.isBlank()) {
-            showError("Please enter the assigned Device ID/Code")
-            return
-        }
-        if (password.isBlank()) {
-            showError("Please enter the Device Password")
+        if (targetUrl.isBlank() || (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://"))) {
+            showError("Please enter a valid website URL (starting with http:// or https://)")
             return
         }
 
-        setLoading(true)
-        binding.tvStatusMessage.visibility = View.GONE
-
-        lifecycleScope.launch {
-            val result = KioskApiClient.authenticateDevice(serverUrl, deviceCode, password)
-            setLoading(false)
-
-            if (result.success) {
-                // Save verified credentials securely
-                prefs.serverUrl = serverUrl
-                prefs.deviceCode = deviceCode
-                prefs.devicePassword = password
-                prefs.deviceId = result.deviceId
-                prefs.siteName = result.siteName
-                prefs.isKioskLocked = true
-
-                Toast.makeText(
-                    this@SetupActivity,
-                    "Device Authenticated Successfully!",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                checkPermissionsAndProceed()
-            } else {
-                showError(result.errorMessage ?: "Authentication failed. Please verify credentials.")
-            }
+        if (masterPin.isBlank()) {
+            showError("Please enter a Master PIN/Password to protect the kiosk unlock menu")
+            return
         }
+
+        // Save preferences securely
+        prefs.targetUrl = targetUrl
+        prefs.webUsername = webUsername
+        prefs.webPassword = webPassword
+        prefs.masterPin = masterPin
+        prefs.autoLoginEnabled = autoLogin
+        prefs.isKioskLocked = true
+
+        Toast.makeText(this, "Configuration Saved! Entering Kiosk Mode...", Toast.LENGTH_SHORT).show()
+        checkPermissionsAndProceed()
     }
 
     private fun checkPermissionsAndProceed() {
-        val requiredPermissions = mutableListOf(
+        val permissions = arrayOf(
             Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
 
-        val ungranted = requiredPermissions.filter {
+        val ungranted = permissions.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
         }
 
@@ -118,14 +103,6 @@ class SetupActivity : AppCompatActivity() {
         }
         startActivity(intent)
         finish()
-    }
-
-    private fun setLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        binding.btnSubmit.isEnabled = !isLoading
-        binding.etServerUrl.isEnabled = !isLoading
-        binding.etDeviceCode.isEnabled = !isLoading
-        binding.etPassword.isEnabled = !isLoading
     }
 
     private fun showError(message: String) {

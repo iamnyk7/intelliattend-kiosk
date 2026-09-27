@@ -23,44 +23,43 @@ class SecurePreferences(context: Context) {
         )
     }
 
-    var serverUrl: String
-        get() = sharedPreferences.getString(KEY_SERVER_URL, "") ?: ""
-        set(value) = sharedPreferences.edit().putString(KEY_SERVER_URL, value.trimEnd('/')).apply()
+    var targetUrl: String
+        get() = sharedPreferences.getString(KEY_TARGET_URL, "") ?: ""
+        set(value) = sharedPreferences.edit().putString(KEY_TARGET_URL, value.trim()).apply()
 
-    var deviceCode: String
-        get() = sharedPreferences.getString(KEY_DEVICE_CODE, "") ?: ""
-        set(value) = sharedPreferences.edit().putString(KEY_DEVICE_CODE, value.trim()).apply()
+    var webUsername: String
+        get() = sharedPreferences.getString(KEY_WEB_USERNAME, "") ?: ""
+        set(value) = sharedPreferences.edit().putString(KEY_WEB_USERNAME, value.trim()).apply()
 
-    var devicePassword: String
-        get() = sharedPreferences.getString(KEY_PASSWORD, "") ?: ""
-        set(value) = sharedPreferences.edit().putString(KEY_PASSWORD, value).apply()
+    var webPassword: String
+        get() = sharedPreferences.getString(KEY_WEB_PASSWORD, "") ?: ""
+        set(value) = sharedPreferences.edit().putString(KEY_WEB_PASSWORD, value).apply()
 
-    var deviceId: String?
-        get() = sharedPreferences.getString(KEY_DEVICE_ID, null)
-        set(value) = sharedPreferences.edit().putString(KEY_DEVICE_ID, value).apply()
+    var masterPin: String
+        get() = sharedPreferences.getString(KEY_MASTER_PIN, "1234") ?: "1234"
+        set(value) = sharedPreferences.edit().putString(KEY_MASTER_PIN, value.trim()).apply()
 
-    var siteName: String?
-        get() = sharedPreferences.getString(KEY_SITE_NAME, null)
-        set(value) = sharedPreferences.edit().putString(KEY_SITE_NAME, value).apply()
-
-    var isConfigured: Boolean
-        get() = serverUrl.isNotBlank() && deviceCode.isNotBlank() && devicePassword.isNotBlank()
-        set(_) {}
+    var autoLoginEnabled: Boolean
+        get() = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, true)
+        set(value) = sharedPreferences.edit().putBoolean(KEY_AUTO_LOGIN, value).apply()
 
     var isKioskLocked: Boolean
         get() = sharedPreferences.getBoolean(KEY_IS_LOCKED, true)
         set(value) = sharedPreferences.edit().putBoolean(KEY_IS_LOCKED, value).apply()
+
+    val isConfigured: Boolean
+        get() = targetUrl.isNotBlank() && masterPin.isNotBlank()
 
     fun clear() {
         sharedPreferences.edit().clear().apply()
     }
 
     companion object {
-        private const val KEY_SERVER_URL = "server_url"
-        private const val KEY_DEVICE_CODE = "device_code"
-        private const val KEY_PASSWORD = "device_password"
-        private const val KEY_DEVICE_ID = "device_id"
-        private const val KEY_SITE_NAME = "site_name"
+        private const val KEY_TARGET_URL = "target_url"
+        private const val KEY_WEB_USERNAME = "web_username"
+        private const val KEY_WEB_PASSWORD = "web_password"
+        private const val KEY_MASTER_PIN = "master_pin"
+        private const val KEY_AUTO_LOGIN = "auto_login"
         private const val KEY_IS_LOCKED = "is_kiosk_locked"
 
         @Volatile

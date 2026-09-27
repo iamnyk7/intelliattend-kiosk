@@ -40,7 +40,7 @@ class TelemetryWorker(
             val location = getLocation()
 
             val telemetry = TelemetryData(
-                deviceCode = prefs.deviceCode,
+                deviceCode = prefs.webUsername.ifBlank { "KIOSK-DEV" },
                 batteryLevel = batteryInfo.first,
                 isCharging = batteryInfo.second,
                 networkType = networkInfo.first,
@@ -53,7 +53,7 @@ class TelemetryWorker(
                 isKioskLocked = prefs.isKioskLocked
             )
 
-            val response = KioskApiClient.sendHeartbeat(prefs.serverUrl, telemetry)
+            val response = KioskApiClient.sendHeartbeat(prefs.targetUrl, telemetry)
             if (response.success && response.commands.isNotEmpty()) {
                 for (command in response.commands) {
                     val intent = Intent(ACTION_KIOSK_COMMAND).apply {
@@ -67,8 +67,7 @@ class TelemetryWorker(
             }
 
             Result.success()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (_: Exception) {
             Result.retry()
         }
     }
@@ -117,9 +116,8 @@ class TelemetryWorker(
         return try {
             val fusedClient = LocationServices.getFusedLocationProviderClient(context)
             val task = fusedClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null)
-            Tasks.await(task, 10, TimeUnit.SECONDS)
+            Tasks.await(task, 8, TimeUnit.SECONDS)
         } catch (_: Exception) {
-            // Fallback to LocationManager
             try {
                 val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 val gpsLoc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)

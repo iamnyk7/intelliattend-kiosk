@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <!-- Logo / App Badge -->
         <TextView
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="IntelliAttend"
             android:textColor="@color/brand_orange"
-            android:textSize="32sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:letterSpacing="0.05"
             app:layout_constraintBottom_toTopOf="@+id/tvSubtitle"
@@ -31,12 +31,12 @@
             android:id="@+id/tvSubtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="@string/setup_subtitle"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toTopOf="@+id/cardForm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,22 +61,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="20dp">
 
-                <!-- Server URL -->
+                <!-- Section: Web App Settings -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Web Application Target"
+                    android:textColor="@color/brand_orange"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Target Website URL -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilServerUrl"
+                    android:id="@+id/tilTargetUrl"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="@string/server_url_hint"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/web_url_hint"
                     android:textColorHint="@color/text_secondary"
                     app:boxStrokeColor="@color/brand_orange"
                     app:hintTextColor="@color/brand_orange">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etServerUrl"
+                        android:id="@+id/etTargetUrl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textUri"
@@ -84,35 +94,34 @@
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Device Code / ID -->
+                <!-- Web Login ID / Username -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilDeviceCode"
+                    android:id="@+id/tilWebUsername"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="@string/device_code_hint"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/web_username_hint"
                     android:textColorHint="@color/text_secondary"
                     app:boxStrokeColor="@color/brand_orange"
                     app:hintTextColor="@color/brand_orange">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etDeviceCode"
+                        android:id="@+id/etWebUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapCharacters"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Device Password -->
+                <!-- Web Login Password -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilPassword"
+                    android:id="@+id/tilWebPassword"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:hint="@string/password_hint"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/web_password_hint"
                     android:textColorHint="@color/text_secondary"
                     app:boxStrokeColor="@color/brand_orange"
                     app:hintTextColor="@color/brand_orange"
@@ -120,7 +129,7 @@
                     app:passwordToggleTint="@color/text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPassword"
+                        android:id="@+id/etWebPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -128,38 +137,80 @@
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Error / Status Message -->
+                <!-- Auto-Login Toggle Switch -->
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchAutoLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:checked="true"
+                    android:text="@string/auto_login_label"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    app:useMaterialThemeColors="true" />
+
+                <!-- Section: Kiosk Master Unlock Lock -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kiosk App Master Lock"
+                    android:textColor="@color/brand_orange"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="This password will be asked whenever you want to unlock or exit this kiosk app."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="12dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilMasterPin"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/master_pin_hint"
+                    android:textColorHint="@color/text_secondary"
+                    app:boxStrokeColor="@color/brand_orange"
+                    app:hintTextColor="@color/brand_orange"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/text_secondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMasterPin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Status / Error -->
                 <TextView
                     android:id="@+id/tvStatusMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="12dp"
                     android:gravity="center"
                     android:textColor="@color/status_red"
                     android:textSize="13sp"
                     android:visibility="gone" />
 
-                <!-- Submit Button -->
+                <!-- Save & Launch Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="@string/btn_test_and_lock"
+                    android:layout_height="54dp"
+                    android:text="@string/btn_save_and_launch"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:backgroundTint="@color/brand_orange"
                     app:cornerRadius="12dp" />
-
-                <!-- Loading Spinner -->
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:indeterminateTint="@color/brand_orange"
-                    android:visibility="gone" />
 
             </LinearLayout>
 

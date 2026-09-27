@@ -64,13 +64,25 @@
 
     </LinearLayout>
 
-    <!-- Hidden 5-Tap Emergency Touch Target (Top-Right 80x80dp transparent zone) -->
-    <View
-        android:id="@+id/emergencyTouchTarget"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <!-- Discreet Technician Maintenance Area (Top-Right 60x60dp) -->
+    <FrameLayout
+        android:id="@+id/maintenanceTrigger"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="top|end"
-        android:background="@android:color/transparent"
-        android:contentDescription="Technician Maintenance Secret Area" />
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Subtle small padlock dot indicator -->
+        <View
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/brand_orange"
+            android:alpha="0.25" />
+
+    </FrameLayout>
 
 </FrameLayout>
